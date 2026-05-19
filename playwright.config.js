@@ -1,0 +1,29 @@
+import { defineConfig, devices } from '@playwright/test';
+
+export default defineConfig({
+  testDir: './tests/e2e',
+  timeout: 30 * 1000,
+  retries: 0,
+  workers: 1,
+  reporter: [['list'], ['html', { open: 'never' }]],
+  use: {
+    actionTimeout: 10 * 1000,
+    baseURL: 'http://127.0.0.1:4173',
+    trace: 'on-first-retry',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    headless: true
+  },
+  webServer: {
+    command: 'npx http-server src -p 4173',
+    url: 'http://127.0.0.1:4173',
+    reuseExistingServer: true,
+    timeout: 30 * 1000
+  },
+  projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] }
+    }
+  ]
+});

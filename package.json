@@ -1,0 +1,16 @@
+{
+  "name": "regulasus-cloud",
+  "version": "1.0.0",
+  "description": "Projeto frontend SISREG FLOW com testes automatizados",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test --reporter=list --reporter=html",
+    "test:e2e": "playwright test --reporter=list --reporter=html",
+    "test:e2e:headed": "playwright test --headed --reporter=list --reporter=html",
+    "test:e2e:report": "playwright show-report playwright-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "http-server": "^14.1.1"
+  }
+}

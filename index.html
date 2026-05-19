@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Meta dados essenciais -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de Gerenciamento de Disponibilidade de Vagas para Consultas Eletivas em Hospitais Públicos">
+    <meta name="author" content="Ministério da Saúde - SUS">
+    <meta name="theme-color" content="#0066cc">
+    
+    <!-- Título da página -->
+    <title>SISREG FLOW - Sistema de Regulação de Saúde</title>
+    
+    <!-- Links de estilo CSS -->
+    <!-- Reset padrão de estilos -->
+    <link rel="stylesheet" href="css/reset.css">
+    <!-- Variáveis CSS e temas -->
+    <link rel="stylesheet" href="css/variables.css">
+    <!-- Layout e grid -->
+    <link rel="stylesheet" href="css/layout.css">
+    <!-- Componentes reutilizáveis -->
+    <link rel="stylesheet" href="css/components.css">
+    <!-- Estilos de formulários -->
+    <link rel="stylesheet" href="css/forms.css">
+    <!-- Media queries para responsividade -->
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- ============================================
+         CABEÇALHO DA APLICAÇÃO
+         Contém logo, nome do sistema e menu de usuário
+         ============================================ -->
+    <header class="main-header">
+        <div class="header-container">
+            <!-- Logo e nome do sistema -->
+            <div class="header-brand">
+                <div class="logo-icon">
+                    <i class="fas fa-hospital"></i>
+                </div>
+                <h1 class="brand-name">SISREG FLOW</h1>
+                <p class="brand-subtitle">Sistema de Regulação de Saúde</p>
+            </div>
+            
+            <!-- Menu de usuário no canto superior direito -->
+            <div class="header-actions">
+                <!-- Notificações -->
+                <button class="btn-icon notification-btn" id="notificationBtn" aria-label="Notificações">
+                    <i class="fas fa-bell"></i>
+                    <span class="badge" id="notificationCount">3</span>
+                </button>
+                
+                <!-- Menu do usuário -->
+                <div class="user-menu">
+                    <button class="user-button" id="userMenuBtn" aria-label="Menu de usuário">
+                        <img src="assets/images/user-avatar.jpg" alt="Avatar do usuário" class="user-avatar">
+                        <span class="user-name" id="userName">Dr. Carlos Silva</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <!-- Dropdown menu -->
+                    <nav class="dropdown-menu" id="userDropdown" hidden>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-user"></i> Meu Perfil
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-cog"></i> Configurações
+                        </a>
+                        <a href="#" class="dropdown-item">
+                            <i class="fas fa-key"></i> Trocar Senha
+                        </a>
+                        <hr class="dropdown-divider">
+                        <a href="#" class="dropdown-item text-danger" id="logoutBtn">
+                            <i class="fas fa-sign-out-alt"></i> Sair
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================
+         CONTAINER PRINCIPAL COM LAYOUT SIDEBAR
+         ============================================ -->
+    <div class="app-container">
+        
+        <!-- SIDEBAR - MENU DE NAVEGAÇÃO LATERAL -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Botão toggle para mobile -->
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Alternar sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <!-- Menu de navegação -->
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <!-- Dashboard -->
+                    <li class="nav-item">
+                        <a href="#dashboard" class="nav-link active" data-page="dashboard">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Gerenciamento de Pacientes -->
+                    <li class="nav-item">
+                        <a href="#patients" class="nav-link" data-page="patients">
+                            <i class="fas fa-user-injured"></i>
+                            <span>Pacientes</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Encaminhamentos -->
+                    <li class="nav-item">
+                        <a href="#referrals" class="nav-link" data-page="referrals">
+                            <i class="fas fa-file-medical"></i>
+                            <span>Encaminhamentos</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Agendamentos -->
+                    <li class="nav-item">
+                        <a href="#scheduling" class="nav-link" data-page="scheduling">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Agendamentos</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Fila de Espera -->
+                    <li class="nav-item">
+                        <a href="#queue" class="nav-link" data-page="queue">
+                            <i class="fas fa-list-ol"></i>
+                            <span>Fila de Espera</span>
+                        </a>
+                    </li>
+                    
+                    <!-- Relatórios -->
+                    <li class="nav-item">
+                        <a href="#reports" class="nav-link" data-page="reports">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Relatórios</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <!-- Rodapé da sidebar com informação do usuário -->
+            <div class="sidebar-footer">
+                <div class="user-info-compact">
+                    <small>Usuário Logado:</small>
+                    <p id="sidebarUserName">Dr. Carlos Silva</p>
+                    <small id="sidebarUserRole">Médico Regulador</small>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ============================================
+             CONTEÚDO PRINCIPAL
+             ============================================ -->
+        <main class="main-content" id="mainContent">
+            
+            <!-- PAGE: DASHBOARD -->
+            <section class="page-section active" id="dashboardPage" data-page="dashboard">
+                <div class="page-header">
+                    <h2>Dashboard</h2>
+                    <p class="page-subtitle">Visão geral do sistema</p>
+                </div>
+                
+                <!-- Cards de estatísticas -->
+                <div class="stats-grid">
+                    <!-- Card: Total de Encaminhamentos -->
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon--blue">
+                            <i class="fas fa-file-medical"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Encaminhamentos</p>
+                            <p class="stat-value" id="statReferrals">245</p>
+                            <small class="stat-change positive">
+                                <i class="fas fa-arrow-up"></i> +12 este mês
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <!-- Card: Pacientes em Fila -->
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon--orange">
+                            <i class="fas fa-hourglass-start"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Em Fila de Espera</p>
+                            <p class="stat-value" id="statQueue">156</p>
+                            <small class="stat-change negative">
+                                <i class="fas fa-arrow-up"></i> +5 esta semana
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <!-- Card: Consultas Agendadas -->
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon--green">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Agendadas</p>
+                            <p class="stat-value" id="statScheduled">89</p>
+                            <small class="stat-change positive">
+                                <i class="fas fa-arrow-down"></i> -3 comparadas semana passada
+                            </small>
+                        </div>
+                    </div>
+                    
+                    <!-- Card: Taxa de Ocupação -->
+                    <div class="stat-card">
+                        <div class="stat-icon stat-icon--purple">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="stat-content">
+                            <p class="stat-label">Ocupação de Vagas</p>
+                            <p class="stat-value" id="statOccupancy">87%</p>
+                            <small class="stat-change positive">
+                                <i class="fas fa-check-circle"></i> Acima da meta
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Seção de ações rápidas -->
+                <section class="dashboard-section">
+                    <h3>Ações Rápidas</h3>
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" id="newReferralBtn">
+                            <i class="fas fa-plus"></i> Novo Encaminhamento
+                        </button>
+                        <button class="btn btn-secondary" id="newPatientBtn">
+                            <i class="fas fa-user-plus"></i> Cadastrar Paciente
+                        </button>
+                        <button class="btn btn-secondary" id="viewQueueBtn">
+                            <i class="fas fa-list-ol"></i> Ver Fila
+                        </button>
+                    </div>
+                </section>
+                
+                <!-- Gráfico simples (placeholder) -->
+                <section class="dashboard-section">
+                    <h3>Encaminhamentos por Especialidade (Últimos 30 dias)</h3>
+                    <div class="chart-placeholder" id="chartPlaceholder">
+                        <p><i class="fas fa-chart-bar"></i> Gráfico será exibido aqui</p>
+                    </div>
+                </section>
+            </section>
+
+            <!-- PAGE: PACIENTES -->
+            <section class="page-section" id="patientsPage" data-page="patients">
+                <div class="page-header">
+                    <h2>Gerenciamento de Pacientes</h2>
+                    <p class="page-subtitle">Cadastro e consulta de pacientes</p>
+                </div>
+                
+                <!-- Barra de ferramentas -->
+                <div class="toolbar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input 
+                            type="text" 
+                            id="patientSearch" 
+                            class="search-input" 
+                            placeholder="Buscar por nome, CPF ou email..."
+                        >
+                    </div>
+                    <button class="btn btn-primary" id="newPatientBtnToolbar">
+                        <i class="fas fa-user-plus"></i> Novo Paciente
+                    </button>
+                </div>
+                
+                <!-- Tabela de pacientes -->
+                <div class="table-container">
+                    <table class="data-table" id="patientsTable">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" class="check-all" id="checkAllPatients">
+                                </th>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Email</th>
+                                <th>Telefone</th>
+                                <th>Data de Cadastro</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientsTableBody">
+                            <!-- Dados preenchidos dinamicamente por JavaScript -->
+                            <tr>
+                                <td><input type="checkbox" class="row-check"></td>
+                                <td>João Silva Santos</td>
+                                <td>123.456.789-00</td>
+                                <td>joao.silva@email.com</td>
+                                <td>(81) 98765-4321</td>
+                                <td>15/05/2026</td>
+                                <td><span class="badge badge-success">Ativo</span></td>
+                                <td>
+                                    <button class="btn-icon btn-sm" title="Editar">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn-icon btn-sm" title="Ver detalhes">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn-icon btn-sm btn-danger" title="Deletar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Paginação -->
+                <div class="pagination">
+                    <button class="btn btn-sm" id="prevPage">Anterior</button>
+                    <span class="page-info">Página <span id="currentPage">1</span> de <span id="totalPages">10</span></span>
+                    <button class="btn btn-sm" id="nextPage">Próxima</button>
+                </div>
+            </section>
+
+            <!-- PAGE: ENCAMINHAMENTOS -->
+            <section class="page-section" id="referralsPage" data-page="referrals">
+                <div class="page-header">
+                    <h2>Encaminhamentos</h2>
+                    <p class="page-subtitle">Gestão de encaminhamentos para especialistas</p>
+                </div>
+                
+                <!-- Filtros -->
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label for="filterStatus">Status:</label>
+                        <select id="filterStatus" class="form-select">
+                            <option value="">Todos</option>
+                            <option value="pendente">Pendente</option>
+                            <option value="autorizado">Autorizado</option>
+                            <option value="rejeitado">Rejeitado</option>
+                            <option value="agendado">Agendado</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filterPriority">Prioridade:</label>
+                        <select id="filterPriority" class="form-select">
+                            <option value="">Todas</option>
+                            <option value="rotina">Rotina</option>
+                            <option value="urgencia">Urgência</option>
+                            <option value="emergencia">Emergência</option>
+                        </select>
+                    </div>
+                    
+                    <button class="btn btn-secondary" id="resetFilters">Limpar Filtros</button>
+                </div>
+                
+                <!-- Cards de encaminhamentos -->
+                <div class="referrals-container" id="referralsContainer">
+                    <!-- Encaminhamento exemplo -->
+                    <div class="referral-card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <h4>Encaminhamento #5001</h4>
+                                <p class="card-subtitle">João Silva Santos</p>
+                            </div>
+                            <span class="badge badge-warning">Pendente</span>
+                        </div>
+                        
+                        <div class="card-body">
+                            <div class="card-row">
+                                <div class="card-field">
+                                    <label>Especialidade:</label>
+                                    <p>Cardiologia</p>
+                                </div>
+                                <div class="card-field">
+                                    <label>Prioridade:</label>
+                                    <p><span class="badge badge-danger">Urgência</span></p>
+                                </div>
+                            </div>
+                            
+                            <div class="card-row">
+                                <div class="card-field">
+                                    <label>Diagnóstico:</label>
+                                    <p>Dor no peito - avaliação cardiológica</p>
+                                </div>
+                            </div>
+                            
+                            <div class="card-row">
+                                <div class="card-field">
+                                    <label>Data do Encaminhamento:</label>
+                                    <p>15/05/2026 10:30</p>
+                                </div>
+                                <div class="card-field">
+                                    <label>Médico Encaminhador:</label>
+                                    <p>Dra. Maria Oliveira</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer">
+                            <button class="btn btn-sm btn-primary" id="approveReferral">
+                                <i class="fas fa-check"></i> Aprovar
+                            </button>
+                            <button class="btn btn-sm btn-secondary" id="requestMoreInfo">
+                                <i class="fas fa-question-circle"></i> Solicitar Info
+                            </button>
+                            <button class="btn btn-sm btn-danger" id="rejectReferral">
+                                <i class="fas fa-times"></i> Rejeitar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE: AGENDAMENTOS -->
+            <section class="page-section" id="schedulingPage" data-page="scheduling">
+                <div class="page-header">
+                    <h2>Agendamentos</h2>
+                    <p class="page-subtitle">Gestão de datas e horários de consultas</p>
+                </div>
+                
+                <!-- Calendário e formulário de agendamento -->
+                <div class="scheduling-content">
+                    <!-- Coluna esquerda: Formulário -->
+                    <div class="scheduling-form-column">
+                        <h3>Novo Agendamento</h3>
+                        
+                        <form id="schedulingForm" class="form">
+                            <!-- Campo: Paciente -->
+                            <div class="form-group">
+                                <label for="schedulePatient">Paciente:</label>
+                                <input 
+                                    type="text" 
+                                    id="schedulePatient" 
+                                    class="form-input"
+                                    placeholder="Selecione ou digite o nome..."
+                                    required
+                                >
+                            </div>
+                            
+                            <!-- Campo: Especialidade -->
+                            <div class="form-group">
+                                <label for="scheduleSpecialty">Especialidade:</label>
+                                <select id="scheduleSpecialty" class="form-select" required>
+                                    <option value="">-- Selecione --</option>
+                                    <option value="cardiologia">Cardiologia</option>
+                                    <option value="oftalmologia">Oftalmologia</option>
+                                    <option value="ortopedia">Ortopedia</option>
+                                    <option value="dermatologia">Dermatologia</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Campo: Data -->
+                            <div class="form-group">
+                                <label for="scheduleDate">Data da Consulta:</label>
+                                <input 
+                                    type="date" 
+                                    id="scheduleDate" 
+                                    class="form-input"
+                                    required
+                                >
+                            </div>
+                            
+                            <!-- Campo: Horário -->
+                            <div class="form-group">
+                                <label for="scheduleTime">Horário:</label>
+                                <select id="scheduleTime" class="form-select" required>
+                                    <option value="">-- Selecione --</option>
+                                    <option value="08:00">08:00</option>
+                                    <option value="08:30">08:30</option>
+                                    <option value="09:00">09:00</option>
+                                    <option value="09:30">09:30</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Campo: Local -->
+                            <div class="form-group">
+                                <label for="scheduleLocation">Local da Consulta:</label>
+                                <select id="scheduleLocation" class="form-select" required>
+                                    <option value="">-- Selecione --</option>
+                                    <option value="hospital-central">Hospital Central</option>
+                                    <option value="ambulatorio-norte">Ambulatório Norte</option>
+                                    <option value="clinica-sul">Clínica Sul</option>
+                                </select>
+                            </div>
+                            
+                            <!-- Campo: Observações -->
+                            <div class="form-group">
+                                <label for="scheduleObservations">Observações:</label>
+                                <textarea 
+                                    id="scheduleObservations" 
+                                    class="form-textarea"
+                                    placeholder="Adicione observações relevantes..."
+                                    rows="3"
+                                ></textarea>
+                            </div>
+                            
+                            <!-- Botões -->
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-calendar-plus"></i> Agendar
+                                </button>
+                                <button type="reset" class="btn btn-secondary">
+                                    <i class="fas fa-redo"></i> Limpar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Coluna direita: Lista de agendamentos -->
+                    <div class="scheduling-list-column">
+                        <h3>Próximos Agendamentos</h3>
+                        <div class="upcoming-schedule" id="upcomingSchedule">
+                            <div class="schedule-item">
+                                <div class="schedule-date">
+                                    <span class="day">18</span>
+                                    <span class="month">maio</span>
+                                </div>
+                                <div class="schedule-details">
+                                    <h5>João Silva Santos</h5>
+                                    <p><i class="fas fa-clock"></i> 09:00 - Cardiologia</p>
+                                    <p><i class="fas fa-location-dot"></i> Hospital Central</p>
+                                </div>
+                                <div class="schedule-actions">
+                                    <button class="btn-icon btn-sm" title="Confirmar">
+                                        <i class="fas fa-check"></i>
+                                    </button>
+                                    <button class="btn-icon btn-sm btn-danger" title="Cancelar">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE: FILA DE ESPERA -->
+            <section class="page-section" id="queuePage" data-page="queue">
+                <div class="page-header">
+                    <h2>Fila de Espera</h2>
+                    <p class="page-subtitle">Acompanhamento de pacientes aguardando agendamento</p>
+                </div>
+                
+                <!-- Filtro por especialidade -->
+                <div class="filter-section">
+                    <div class="filter-group">
+                        <label for="queueSpecialty">Filtrar por Especialidade:</label>
+                        <select id="queueSpecialty" class="form-select">
+                            <option value="">Todas as Especialidades</option>
+                            <option value="cardiologia">Cardiologia</option>
+                            <option value="oftalmologia">Oftalmologia</option>
+                            <option value="ortopedia">Ortopedia</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Fila de espera - Lista */
+                <div class="queue-container" id="queueContainer">
+                    <!-- Item da fila -->
+                    <div class="queue-item">
+                        <div class="queue-position">
+                            <span class="position-badge">1º</span>
+                        </div>
+                        <div class="queue-info">
+                            <h5>João Silva Santos</h5>
+                            <p><strong>Especialidade:</strong> Cardiologia</p>
+                            <p><strong>Prioridade:</strong> <span class="badge badge-danger">Urgência</span></p>
+                            <p><strong>Na fila há:</strong> 5 dias</p>
+                            <p><strong>Data de entrada:</strong> 13/05/2026</p>
+                        </div>
+                        <div class="queue-actions">
+                            <button class="btn btn-sm btn-primary" title="Agendar">
+                                <i class="fas fa-calendar-plus"></i> Agendar
+                            </button>
+                            <button class="btn btn-sm btn-secondary" title="Ver detalhes">
+                                <i class="fas fa-eye"></i> Detalhes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE: RELATÓRIOS -->
+            <section class="page-section" id="reportsPage" data-page="reports">
+                <div class="page-header">
+                    <h2>Relatórios</h2>
+                    <p class="page-subtitle">Análise de dados e indicadores do sistema</p>
+                </div>
+                
+                <!-- Seleção de relatório -->
+                <div class="report-selector">
+                    <button class="btn btn-outline" id="reportOccupancy">
+                        <i class="fas fa-chart-pie"></i> Ocupação de Vagas
+                    </button>
+                    <button class="btn btn-outline" id="reportWaitTime">
+                        <i class="fas fa-hourglass"></i> Tempo de Espera
+                    </button>
+                    <button class="btn btn-outline" id="reportAbsences">
+                        <i class="fas fa-user-times"></i> Faltas a Consultas
+                    </button>
+                    <button class="btn btn-outline" id="reportAudit">
+                        <i class="fas fa-history"></i> Auditoria
+                    </button>
+                </div>
+                
+                <!-- Conteúdo dos relatórios -->
+                <div class="report-content" id="reportContent">
+                    <div class="empty-state">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Selecione um relatório para visualizar</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ============================================
+         MODAL: CADASTRO DE PACIENTE
+         ============================================ -->
+    <div class="modal" id="patientModal" aria-labelledby="patientModalTitle" hidden>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="patientModalTitle">Cadastro de Paciente</h2>
+                    <button class="btn-close" id="closePatientModal" aria-label="Fechar">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <form id="patientForm" class="form">
+                        <!-- Informações Pessoais -->
+                        <fieldset class="form-fieldset">
+                            <legend>Informações Pessoais</legend>
+                            
+                            <div class="form-group">
+                                <label for="firstName">Nome Completo *</label>
+                                <input 
+                                    type="text" 
+                                    id="firstName" 
+                                    class="form-input"
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="cpf">CPF *</label>
+                                    <input 
+                                        type="text" 
+                                        id="cpf" 
+                                        class="form-input"
+                                        placeholder="000.000.000-00"
+                                        required
+                                    >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="birthDate">Data de Nascimento *</label>
+                                    <input 
+                                        type="date" 
+                                        id="birthDate" 
+                                        class="form-input"
+                                        required
+                                    >
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="gender">Sexo *</label>
+                                    <select id="gender" class="form-select" required>
+                                        <option value="">-- Selecione --</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Feminino</option>
+                                        <option value="O">Outro</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </fieldset>
+                        
+                        <!-- Contato -->
+                        <fieldset class="form-fieldset">
+                            <legend>Informações de Contato</legend>
+                            
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    class="form-input"
+                                    required
+                                >
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone">Telefone *</label>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    class="form-input"
+                                    placeholder="(81) 98765-4321"
+                                    required
+                                >
+                            </div>
+                        </fieldset>
+                        
+                        <!-- Endereço -->
+                        <fieldset class="form-fieldset">
+                            <legend>Informações de Endereço</legend>
+                            
+                            <div class="form-group">
+                                <label for="address">Endereço Completo</label>
+                                <input 
+                                    type="text" 
+                                    id="address" 
+                                    class="form-input"
+                                >
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="neighborhood">Bairro</label>
+                                    <input 
+                                        type="text" 
+                                        id="neighborhood" 
+                                        class="form-input"
+                                    >
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="city">Cidade</label>
+                                    <input 
+                                        type="text" 
+                                        id="city" 
+                                        class="form-input"
+                                        value="Recife"
+                                    >
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" id="cancelPatientForm">
+                                Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Salvar Paciente
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MODAL: CONFIRMAÇÃO
+         ============================================ -->
+    <div class="modal" id="confirmModal" hidden>
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <i class="fas fa-exclamation-triangle modal-icon"></i>
+                    <h3 id="confirmTitle">Confirmação</h3>
+                    <p id="confirmMessage">Tem certeza que deseja continuar?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" id="confirmCancel">Cancelar</button>
+                    <button class="btn btn-primary" id="confirmOk">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         NOTIFICAÇÕES (TOAST)
+         ============================================ -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <script type="module" src="main.js"></script>
+</body>
+</html>
