@@ -1,5 +1,5 @@
-# ARQUITETURA DE DADOS
-## Sistema SISREG FLOW
+﻿# ARQUITETURA DE DADOS
+## Sistema REGULASUS
 
 ---
 
@@ -253,4 +253,5 @@ CREATE INDEX idx_notificacao_paciente ON NOTIFICACOES(paciente_id);
 - Logs de auditoria para qualquer alteração crítica
 - Backup automático diário
 - Replicação de dados para alta disponibilidade
+
 

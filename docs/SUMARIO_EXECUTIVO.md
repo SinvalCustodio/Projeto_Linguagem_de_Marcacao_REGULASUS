@@ -1,4 +1,4 @@
-# 📋 SUMÁRIO EXECUTIVO - SISREG FLOW
+﻿# 📋 SUMÁRIO EXECUTIVO - REGULASUS
 
 ## Sistema de Gerenciamento de Disponibilidade de Vagas para Consultas Eletivas em Hospitais Públicos
 
@@ -38,7 +38,7 @@ Este é um **projeto de linguagem de marcação (HTML/CSS/JavaScript)** totalmen
 ## 🏗️ Estrutura do Projeto
 
 ```
-SISREG FLOW/
+REGULASUS/
 │
 ├── 📄 DOCUMENTAÇÃO/
 │   ├── 01_ESPECIFICACAO_PROJETO.md       (Planejamento completo)
@@ -232,7 +232,7 @@ npx http-server
          │ Emite encaminhamento
          ▼
 ┌─────────────────────────┐
-│  SISREG FLOW - Cadastro │  Registra no sistema
+│  REGULASUS - Cadastro │  Registra no sistema
 └────────────┬────────────┘
              │ Auditoria
              ▼
@@ -442,3 +442,4 @@ Projeto Geral:       ███████████████████�
 Este projeto foi desenvolvido seguindo as melhores práticas de desenvolvimento web, padrões de design de software e com foco em acessibilidade e usabilidade.
 
 **Bom desenvolvimento! 🚀**
+

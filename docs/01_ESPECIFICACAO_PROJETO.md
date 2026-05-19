@@ -1,7 +1,7 @@
-# ESPECIFICAÇÃO DE PROJETO
+﻿# ESPECIFICAÇÃO DE PROJETO
 ## Sistema de Gerenciamento de Disponibilidade de Vagas para Consultas Eletivas
 
-**Nome do Sistema:** SISREG FLOW - Sistema Integrado de Regulação de Fluxo de Saúde
+**Nome do Sistema:** REGULASUS - Sistema Integrado de Regulação de Fluxo de Saúde
 
 **Versão:** 1.0  
 **Data de Criação:** Maio 2026  
@@ -100,7 +100,7 @@ Desenvolver uma plataforma web para gerenciar o fluxo de pacientes desde a Unida
 │                               │                              │
 │                               ▼                              │
 │              ┌────────────────────────────────────┐           │
-│              │  INSERIR NO SISREG FLOW            │           │
+│              │  INSERIR NO REGULASUS            │           │
 │              │  (Equipe administrativa)          │           │
 │              └────────────────┬───────────────────┘           │
 └──────────────────────────────┬──────────────────────────────┘
@@ -226,3 +226,4 @@ Desenvolver uma plataforma web para gerenciar o fluxo de pacientes desde a Unida
 ---
 
 **Documento preparado para desenvolvimento.**
+

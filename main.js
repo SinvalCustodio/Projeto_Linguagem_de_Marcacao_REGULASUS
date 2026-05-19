@@ -1,6 +1,6 @@
-/**
+﻿/**
  * =====================================================
- * SISREG FLOW - Script Principal
+ * REGULASUS - Script Principal
  * Sistema de Gerenciamento de Disponibilidade de Vagas
  * ===================================================== */
 
@@ -9,7 +9,7 @@
 // =====================================================
 
 const APP_CONFIG = {
-    APP_NAME: 'SISREG FLOW',
+    APP_NAME: 'REGULASUS',
     VERSION: '1.0.0',
     DEBUG: true
 };
@@ -1061,3 +1061,4 @@ function formatPhone(phone) {
     }
     return phone;
 }
+
