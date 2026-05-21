@@ -1,5 +1,5 @@
-# GUIA DE DESENVOLVIMENTO
-## Sistema SISREG FLOW
+﻿# GUIA DE DESENVOLVIMENTO
+## Sistema REGULASUS
 
 ---
 
@@ -32,7 +32,7 @@
 ### 1.2 Estrutura de Pastas
 
 ```
-sisreg-flow/
+regulasus/
 │
 ├── index.html              # Página principal
 ├── css/
@@ -414,4 +414,5 @@ images.forEach(img => observer.observe(img));
 - [ ] Documentação atualizada
 - [ ] Variáveis de ambiente configuradas
 - [ ] Backup de dados implementado
+
 

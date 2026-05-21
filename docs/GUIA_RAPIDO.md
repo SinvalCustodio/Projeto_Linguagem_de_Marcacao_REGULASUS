@@ -1,6 +1,6 @@
-# 🚀 GUIA RÁPIDO DE INÍCIO - SISREG FLOW
+﻿# 🚀 GUIA RÁPIDO DE INÍCIO - REGULASUS
 
-Comece a usar o Sistema SISREG FLOW em 5 minutos!
+Comece a usar o Sistema REGULASUS em 5 minutos!
 
 ---
 
@@ -8,7 +8,7 @@ Comece a usar o Sistema SISREG FLOW em 5 minutos!
 
 ### Estrutura de Pastas Necessária:
 ```
-sisreg-flow/
+regulasus/
 ├── index.html
 ├── css/
 │   └── styles.css
@@ -22,7 +22,7 @@ sisreg-flow/
 ```
 
 ### Como Organizar:
-1. Crie uma pasta chamada `sisreg-flow`
+1. Crie uma pasta chamada `regulasus`
 2. Coloque `index.html` na raiz
 3. Crie pasta `css/` e copie `styles.css`
 4. Crie pasta `js/` e copie `main.js`
@@ -46,14 +46,14 @@ sisreg-flow/
 
 **Python 3:**
 ```bash
-cd sisreg-flow
+cd regulasus
 python -m http.server 8000
 # Abra http://localhost:8000 no navegador
 ```
 
 **Node.js:**
 ```bash
-cd sisreg-flow
+cd regulasus
 npx http-server
 # Abra http://localhost:8080 no navegador
 ```
@@ -65,7 +65,7 @@ npx http-server
 ### Layout Principal:
 ```
 ┌────────────────────────────────────────────┐
-│     🏥 SISREG FLOW    🔔    👤 Usuário    │
+│     🏥 REGULASUS    🔔    👤 Usuário    │
 ├──────────────────────────────────────────────┤
 │         │                                    │
 │ SIDEBAR │         CONTEÚDO PRINCIPAL         │
@@ -258,7 +258,7 @@ Altere para a cor desejada:
 Abra `index.html` e procure por:
 
 ```html
-<h1 class="brand-name">SISREG FLOW</h1>
+<h1 class="brand-name">REGULASUS</h1>
 ```
 
 Altere para:
@@ -380,7 +380,8 @@ Você tem tudo que precisa para:
 
 ---
 
-**Boa diversão desenvolvendo com SISREG FLOW! 🏥✨**
+**Boa diversão desenvolvendo com REGULASUS! 🏥✨**
 
 *Última atualização: Maio 2026*
 *Versão: 1.0.0*
+

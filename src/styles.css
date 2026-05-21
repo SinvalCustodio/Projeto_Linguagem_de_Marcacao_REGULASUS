@@ -1,5 +1,5 @@
-/* =====================================================
-   SISREG FLOW - FOLHA DE ESTILOS CONSOLIDADA
+﻿/* =====================================================
+   REGULASUS - FOLHA DE ESTILOS CONSOLIDADA
    Sistema de Gerenciamento de Disponibilidade de Vagas
    ===================================================== */
 
@@ -1503,3 +1503,4 @@ label:has(+ input[required])::after {
         padding: 0;
     }
 }
+

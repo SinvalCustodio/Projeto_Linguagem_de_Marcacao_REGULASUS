@@ -1,10 +1,10 @@
-import { test, expect } from '@playwright/test';
+﻿import { test, expect } from '@playwright/test';
 
-test.describe('SISREG FLOW E2E', () => {
+test.describe('REGULASUS E2E', () => {
   test('homepage loads and default pages render', async ({ page }) => {
     await page.goto('/');
-    await expect(page).toHaveTitle(/SISREG FLOW/);
-    await expect(page.locator('text=SISREG FLOW')).toBeVisible();
+    await expect(page).toHaveTitle(/REGULASUS/);
+    await expect(page.locator('text=REGULASUS')).toBeVisible();
     await expect(page.locator('#dashboardPage')).toBeVisible();
   });
 
@@ -120,3 +120,4 @@ test.describe('SISREG FLOW E2E', () => {
     await expect(page.locator('.toast-message')).toContainText('Encaminhamento #5003 rejeitado');
   });
 });
+
