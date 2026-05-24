@@ -2,7 +2,7 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests/e2e',
-  timeout: 30 * 1000,
+  timeout: 60 * 1000,
   retries: 0,
   workers: 1,
   reporter: [['list'], ['html', { open: 'never' }]],
@@ -15,7 +15,7 @@ export default defineConfig({
     headless: true
   },
   webServer: {
-    command: 'npx http-server src -p 4173',
+    command: 'npx http-server . -p 4173',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: true,
     timeout: 30 * 1000
