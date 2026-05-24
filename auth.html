@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — REGULASUS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/base.css">
+    <style>
+        :root {
+            --auth-bg: #f8fafc;
+        }
+
+        body {
+            background: var(--auth-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: var(--space-4);
+            overflow-x: hidden;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 420px;
+            perspective: 1000px;
+        }
+
+        .auth-card {
+            background: white;
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-2xl);
+            padding: var(--space-8);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: var(--space-8);
+        }
+
+        .auth-logo {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(135deg, var(--primary), var(--color-primary-800));
+            color: white;
+            border-radius: var(--radius-xl);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto var(--space-4);
+            box-shadow: 0 8px 16px -4px rgba(37, 99, 235, 0.4);
+        }
+
+        .auth-title {
+            font-size: var(--text-2xl);
+            font-weight: var(--font-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-1);
+        }
+
+        .auth-subtitle {
+            color: var(--text-muted);
+            font-size: var(--text-sm);
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: var(--text-xs);
+            font-weight: var(--font-bold);
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: var(--space-3);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            transition: color 0.2s;
+        }
+
+        .auth-input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            font-size: var(--text-sm);
+            transition: all 0.2s;
+            background: var(--color-gray-50);
+        }
+
+        .auth-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .auth-input:focus + .input-icon {
+            color: var(--primary);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: var(--space-3);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+        }
+
+        .toggle-password:hover {
+            color: var(--text-primary);
+            background: var(--color-gray-100);
+        }
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: var(--space-1);
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            font-size: var(--text-sm);
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: var(--font-medium);
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .auth-btn {
+            margin-top: var(--space-4);
+            padding: 12px;
+            font-weight: var(--font-bold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-2);
+        }
+
+        .auth-footer {
+            text-align: center;
+            margin-top: var(--space-8);
+            font-size: var(--text-sm);
+            color: var(--text-secondary);
+        }
+
+        .switch-auth {
+            color: var(--primary);
+            font-weight: var(--font-bold);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .switch-auth:hover {
+            text-decoration: underline;
+        }
+
+        /* Animações */
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        /* Estilos para o Toast local */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+
+        .toast {
+            background: white;
+            border-left: 4px solid var(--primary);
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .toast--error { border-left-color: var(--danger); }
+        .toast--success { border-left-color: var(--success); }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <div class="auth-container">
+        <!-- Card de Login -->
+        <div id="loginCard" class="auth-card fade-in">
+            <div class="auth-header">
+                <div class="auth-logo"><i class="fas fa-heartbeat"></i></div>
+                <h1 class="auth-title">Bem-vindo</h1>
+                <p class="auth-subtitle">Acesse o painel do REGULASUS</p>
+            </div>
+
+            <form id="loginForm" class="auth-form">
+                <div class="form-group">
+                    <label class="form-label" for="loginUser">Usuário</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="loginUser" class="auth-input" placeholder="Seu usuário" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="loginPass">Senha</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="loginPass" class="auth-input" placeholder="Sua senha" required>
+                        <i class="fas fa-eye toggle-password" data-target="loginPass"></i>
+                    </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> Lembrar de mim
+                    </label>
+                    <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                </div>
+
+                <button type="submit" class="btn btn-primary auth-btn">
+                    Entrar no Sistema
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                Não tem uma conta? <span class="switch-auth" id="toRegister">Criar agora</span>
+            </div>
+        </div>
+
+        <!-- Card de Registro (Oculto inicialmente) -->
+        <div id="registerCard" class="auth-card" style="display: none;">
+            <div class="auth-header">
+                <div class="auth-logo"><i class="fas fa-user-plus"></i></div>
+                <h1 class="auth-title">Criar Conta</h1>
+                <p class="auth-subtitle">Cadastre-se para acessar a regulação</p>
+            </div>
+
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label class="form-label" for="regUser">Usuário</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-user input-icon"></i>
+                        <input type="text" id="regUser" class="auth-input" placeholder="Escolha um usuário" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="regPass">Senha</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="regPass" class="auth-input" placeholder="Crie uma senha forte" required>
+                        <i class="fas fa-eye toggle-password" data-target="regPass"></i>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="regPassConfirm">Confirmar Senha</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-check-circle input-icon"></i>
+                        <input type="password" id="regPassConfirm" class="auth-input" placeholder="Repita a senha" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary auth-btn">
+                    Cadastrar Usuário
+                    <i class="fas fa-user-check"></i>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                Já tem uma conta? <span class="switch-auth" id="toLogin">Fazer login</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Elementos
+        const loginCard = document.getElementById('loginCard');
+        const registerCard = document.getElementById('registerCard');
+        const toRegister = document.getElementById('toRegister');
+        const toLogin = document.getElementById('toLogin');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const toastContainer = document.getElementById('toastContainer');
+
+        // Alternar entre Login e Registro
+        toRegister.addEventListener('click', () => {
+            loginCard.style.display = 'none';
+            registerCard.style.display = 'block';
+            registerCard.classList.add('fade-in');
+        });
+
+        toLogin.addEventListener('click', () => {
+            registerCard.style.display = 'none';
+            loginCard.style.display = 'block';
+            loginCard.classList.add('fade-in');
+        });
+
+        // Mostrar/Esconder Senha
+        document.querySelectorAll('.toggle-password').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                const input = document.getElementById(targetId);
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    btn.classList.replace('fa-eye', 'fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    btn.classList.replace('fa-eye-slash', 'fa-eye');
+                }
+            });
+        });
+
+        // Sistema de Toast Simples
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast toast--${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+            toastContainer.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // Banco de dados local simples
+        const getUsers = () => JSON.parse(localStorage.getItem('regulasus_users')) || [{ user: 'admin', pass: 'admin' }];
+        const saveUser = (newUser) => {
+            const users = getUsers();
+            users.push(newUser);
+            localStorage.setItem('regulasus_users', JSON.stringify(users));
+        };
+
+        // Lógica de Login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userVal = document.getElementById('loginUser').value.trim();
+            const passVal = document.getElementById('loginPass').value;
+
+            const users = getUsers();
+            const foundUser = users.find(u => u.user === userVal && u.pass === passVal);
+
+            if (foundUser) {
+                showToast(`Bem-vindo, ${userVal}! Redirecionando...`, 'success');
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', userVal);
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                loginCard.classList.add('shake');
+                showToast('Usuário ou senha incorretos!', 'error');
+                setTimeout(() => loginCard.classList.remove('shake'), 500);
+            }
+        });
+
+        // Lógica de Registro
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const userVal = document.getElementById('regUser').value.trim();
+            const passVal = document.getElementById('regPass').value;
+            const passConfirm = document.getElementById('regPassConfirm').value;
+
+            if (!userVal || !passVal) {
+                showToast('Preencha todos os campos!', 'error');
+                return;
+            }
+
+            if (passVal !== passConfirm) {
+                registerCard.classList.add('shake');
+                showToast('As senhas não coincidem!', 'error');
+                setTimeout(() => registerCard.classList.remove('shake'), 500);
+                return;
+            }
+
+            const users = getUsers();
+            if (users.some(u => u.user === userVal)) {
+                showToast('Este usuário já existe!', 'error');
+                return;
+            }
+
+            saveUser({ user: userVal, pass: passVal });
+            showToast('Usuário cadastrado com sucesso!', 'success');
+            
+            setTimeout(() => {
+                registerCard.style.display = 'none';
+                loginCard.style.display = 'block';
+                loginCard.classList.add('fade-in');
+                document.getElementById('loginUser').value = userVal;
+                document.getElementById('loginPass').value = '';
+                registerForm.reset();
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

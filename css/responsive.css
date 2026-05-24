@@ -1,0 +1,316 @@
+/* =====================================================
+   REGULASUS — RESPONSIVE CSS
+   Media queries para responsividade
+   ===================================================== */
+
+/* -----------------------------------------------
+   BREAKPOINTS:
+   xl:  1280px+
+   lg:  1024px – 1279px
+   md:  768px  – 1023px
+   sm:  480px  – 767px
+   xs:  < 480px
+   ----------------------------------------------- */
+
+/* -----------------------------------------------
+   LARGE (até 1280px)
+   ----------------------------------------------- */
+@media (max-width: 1280px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .dashboard-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -----------------------------------------------
+   MEDIUM-LARGE (até 1024px)
+   ----------------------------------------------- */
+@media (max-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .scheduling-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .referrals-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -----------------------------------------------
+   MEDIUM (até 768px) — TABLET / MOBILE
+   ----------------------------------------------- */
+@media (max-width: 768px) {
+
+    /* Cabeçalho */
+    .sidebar-toggle-btn {
+        display: flex;
+    }
+
+    .brand-tagline {
+        display: none;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .header-divider {
+        display: none;
+    }
+
+    /* Sidebar — oculta por padrão no mobile */
+    .sidebar {
+        position: fixed;
+        top: var(--header-height);
+        left: 0;
+        height: calc(100vh - var(--header-height));
+        z-index: var(--z-sticky);
+        transform: translateX(-100%);
+        transition: transform var(--transition-slow);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .sidebar.sidebar--open {
+        transform: translateX(0);
+    }
+
+    /* Conteúdo principal */
+    .main-content {
+        padding: var(--space-4);
+    }
+
+    /* Stats grid */
+    .stats-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-3);
+    }
+
+    .stat-value {
+        font-size: var(--text-3xl);
+    }
+
+    /* Dashboard */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-bottom-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Cabeçalho de página */
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .page-header-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    /* Toolbar */
+    .toolbar-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-field {
+        min-width: 100%;
+    }
+
+    /* Filtros */
+    .filter-card {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-group {
+        min-width: 100%;
+    }
+
+    /* Tabela */
+    .data-table th,
+    .data-table td {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--text-xs);
+    }
+
+    .table-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Encaminhamentos */
+    .referrals-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .referral-card-body {
+        grid-template-columns: 1fr;
+    }
+
+    /* Agendamentos */
+    .scheduling-layout {
+        grid-template-columns: 1fr;
+    }
+
+    /* Fila */
+    .queue-item {
+        flex-wrap: wrap;
+    }
+
+    .queue-actions {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    /* Relatórios */
+    .report-tabs {
+        gap: var(--space-1-5);
+    }
+
+    .report-tab {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--text-xs);
+    }
+
+    .report-stats-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Modal */
+    .modal-overlay {
+        padding: var(--space-3);
+        align-items: flex-end;
+    }
+
+    .modal-container {
+        max-height: 95vh;
+        border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+    }
+
+    .modal-overlay--sm {
+        align-items: center;
+    }
+
+    .modal-overlay--sm .modal-container {
+        border-radius: var(--radius-2xl);
+    }
+
+    /* Toast */
+    .toast-container {
+        left: var(--space-3);
+        right: var(--space-3);
+        top: auto;
+        bottom: var(--space-4);
+        max-width: 100%;
+    }
+
+    /* Form row */
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -----------------------------------------------
+   SMALL (até 480px)
+   ----------------------------------------------- */
+@media (max-width: 480px) {
+
+    /* Stats */
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: var(--space-4);
+    }
+
+    /* Brand */
+    .brand-name {
+        font-size: var(--text-lg);
+    }
+
+    /* Ações rápidas */
+    .quick-actions-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Fila */
+    .queue-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .queue-position-badge {
+        width: 40px;
+        height: 40px;
+        font-size: var(--text-lg);
+    }
+
+    /* Relatórios */
+    .report-stats-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* Paginação */
+    .pagination {
+        gap: var(--space-2);
+    }
+
+    /* Botões de ação em cards */
+    .referral-card-footer {
+        flex-direction: column;
+    }
+
+    .referral-card-footer .btn {
+        width: 100%;
+    }
+}
+
+/* -----------------------------------------------
+   IMPRESSÃO
+   ----------------------------------------------- */
+@media print {
+    .sidebar,
+    .main-header,
+    .header-actions,
+    .toolbar-card,
+    .filter-card,
+    .btn,
+    .modal-overlay,
+    .toast-container,
+    .splash-screen {
+        display: none !important;
+    }
+
+    body {
+        background: white;
+        color: black;
+    }
+
+    .main-content {
+        padding: 0;
+    }
+
+    .page-section[hidden] {
+        display: block !important;
+    }
+
+    .stat-card,
+    .dashboard-card,
+    .table-card,
+    .referral-card,
+    .queue-item {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
