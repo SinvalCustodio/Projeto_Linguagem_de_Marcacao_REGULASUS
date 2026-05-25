@@ -13,6 +13,7 @@ class ModalManager {
         this._initModals();
         this._setupPatientModal();
         this._setupConfirmModal();
+        this._setupEditPatientModal();
     }
 
     /**
@@ -243,4 +244,43 @@ class ModalManager {
     validateCPF(cpf) {
         return validateCPF(cpf);
     }
+        /**
+     * Configura o modal de edição de paciente (Nova funcionalidade)
+     */
+    _setupEditPatientModal() {
+        // Botão Fechar (X)
+        const closeBtn = document.getElementById('closeEditModalBtn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => this.close('editPatientModal'));
+        }
+
+        // Botão Cancelar
+        const cancelBtn = document.getElementById('cancelEditBtn');
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => this.close('editPatientModal'));
+        }
+
+        // Envio do formulário editado
+        const editForm = document.getElementById('editPatientForm');
+        if (editForm) {
+            editForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                const nome = document.getElementById('editPatientName').value.trim();
+                
+                // Exibe a notificação de sucesso usando o gerenciador do sistema
+                if (window.notificationManager) {
+                    window.notificationManager.success(`Dados do paciente ${nome} atualizados com sucesso!`);
+                }
+
+                this.close('editPatientModal');
+
+                // Recarrega a tabela se o gerenciador de pacientes existir
+                if (window.patientManager) {
+                    window.patientManager.loadPatients();
+                }
+            });
+        }
+    }
+
 }

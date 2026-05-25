@@ -1362,6 +1362,58 @@
 <div id="toastContainer" class="toast-container" role="region" aria-label="Notificações do sistema" aria-live="polite"></div>
 
 <!-- =====================================================
+     MODAL DE EDIÇÃO DO PACIENTE (NOVA FUNCIONALIDADE)
+     ===================================================== -->
+<div id="editPatientModal" class="modal-container" role="dialog" aria-labelledby="modalTitle" hidden>
+    <div class="modal-overlay" id="modalOverlay"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle"><i class="fas fa-user-edit"></i> Editar Dados do Paciente</h2>
+            <button id="closeModalBtn" class="icon-btn" aria-label="Fechar janela">&times;</button>
+        </div>
+        
+        <form id="editPatientForm" class="modal-form">
+            <div class="form-group">
+                <label for="patientName">Nome Completo:</label>
+                <input type="text" id="patientName" name="patientName" required class="form-input">
+            </div>
+
+            <div class="form-group">
+                <label for="patientCns">Cartão Nacional de Saúde (CNS):</label>
+                <input type="text" id="patientCns" name="patientCns" required class="form-input" placeholder="000 0000 0000 0000">
+            </div>
+
+            <div class="form-group-row">
+                <div class="form-group">
+                    <label for="patientBirth">Data de Nascimento:</label>
+                    <input type="date" id="patientBirth" name="patientBirth" required class="form-input">
+                </div>
+                <div class="form-group">
+                    <label for="patientPhone">Telefone de Contato:</label>
+                    <input type="tel" id="patientPhone" name="patientPhone" required class="form-input" placeholder="(00) 00000-0000">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="patientStatus">Status de Regulação:</label>
+                <select id="patientStatus" name="patientStatus" class="form-input">
+                    <option value="aguardando">Aguardando Vaga</option>
+                    <option value="em_analise">Em Análise</option>
+                    <option value="autorizado">Autorizado</option>
+                    <option value="negado">Não Autorizado</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" id="cancelEditBtn" class="btn-secondary">Cancelar</button>
+                <button type="submit" class="btn-primary">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- =====================================================
      SCRIPTS (ordem de dependências)
      ===================================================== -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
